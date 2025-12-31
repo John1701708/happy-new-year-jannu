@@ -5,16 +5,16 @@
 <title>Happy New Year My Love ❤️✨</title>
 
 <style>
+/* ================= BODY ================= */
 body{
   margin:0;
   font-family:'Segoe UI',sans-serif;
-  height:100vh;
-  overflow:hidden;
+  min-height:100vh;
+  overflow-y:auto;
   color:white;
-  background:#000;
 }
 
-/* ===== LOCK SCREEN ===== */
+/* ================= LOCK SCREEN ================= */
 #lockScreen{
   position:fixed;
   inset:0;
@@ -22,44 +22,49 @@ body{
   justify-content:center;
   align-items:center;
   flex-direction:column;
+  background:
+    linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
+    url("images/background.jpg") center / cover no-repeat fixed;
   z-index:10;
   overflow:hidden;
-  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
 }
 
-/* Words background */
+/* background words */
 .word-bg{
   position:absolute;
   inset:0;
   color:rgba(255,255,255,0.07);
   font-size:14px;
-  line-height:1.4;
+  line-height:1.5;
   padding:20px;
+  z-index:0;
   white-space:pre-wrap;
-  z-index:-1;
 }
 
-/* Password box */
+/* password box */
 .password-container{
-  background:rgba(0,0,0,0.45);
-  padding:35px 40px;
+  position:relative;
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  background:rgba(0,0,0,0.55);
+  padding:30px 35px;
   border-radius:25px;
-  backdrop-filter:blur(12px);
-  box-shadow:0 0 40px rgba(255,255,255,0.15);
-  text-align:center;
+  backdrop-filter:blur(6px);
+  box-shadow:0 0 30px rgba(0,0,0,0.7);
 }
 
 .password-container h2{
-  margin-bottom:20px;
-  font-weight:500;
+  text-align:center;
+  margin-bottom:15px;
 }
 
-/* Input */
 #lockScreen input{
   width:260px;
   padding:14px;
-  border-radius:30px;
-  border:1px solid rgba(255,255,255,0.6);
+  border-radius:12px;
+  border:2px solid rgba(255,255,255,0.7);
   background:rgba(255,255,255,0.15);
   color:white;
   font-size:18px;
@@ -67,75 +72,80 @@ body{
   outline:none;
 }
 
-/* Button */
 #lockScreen button{
-  margin-top:18px;
-  padding:12px 35px;
+  margin-top:15px;
+  padding:12px 30px;
   font-size:18px;
-  border-radius:30px;
+  border-radius:15px;
   border:none;
   cursor:pointer;
-  background:linear-gradient(135deg,#ff4d6d,#ff758f);
+  background:#ff4d6d;
   color:white;
 }
 
-/* ===== MAIN SCREEN ===== */
+/* ================= MAIN CONTENT ================= */
 #mainContent{
   position:fixed;
   inset:0;
   display:none;
+  overflow-y:auto;
   background:
-    linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.55)),
-    url("images/main-bg.jpg") center/cover no-repeat fixed;
+    linear-gradient(rgba(0,0,0,0.65),rgba(0,0,0,0.65)),
+    url("images/main-bg.jpg") center / cover no-repeat fixed;
 }
 
-/* Message card */
+/* CARD */
 .card{
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  background:rgba(0,0,0,0.55);
-  padding:45px;
-  border-radius:30px;
+  margin:80px auto 120px;
   max-width:720px;
+  width:90%;
+  background:rgba(0,0,0,0.55);
+  padding:40px;
+  border-radius:30px;
   text-align:center;
   box-shadow:0 0 40px rgba(0,0,0,0.7);
+  display:none;
 }
 
-.card h1{font-size:42px;margin-bottom:20px;}
-.card p{font-size:20px;line-height:1.7;}
+.card h1{
+  font-size:40px;
+  margin-bottom:20px;
+}
 
-/* Floating pics */
+.card p{
+  font-size:20px;
+  line-height:1.7;
+}
+
+/* ================= FLOATING ================= */
 .floating-pic{
   position:fixed;
   top:-120px;
   border-radius:50%;
   object-fit:cover;
   animation:fall linear forwards;
-  box-shadow:0 0 25px rgba(255,255,255,0.6);
+  box-shadow:0 0 18px rgba(255,255,255,0.5);
   z-index:2;
 }
 
-/* Floating hearts */
 .floating-heart{
   position:fixed;
   top:-60px;
-  font-size:42px;
+  font-size:36px;
   animation:fallHeart linear forwards;
   z-index:3;
 }
 
-/* Floating words */
 .floating-word{
   position:fixed;
-  bottom:-40px;
+  bottom:-30px;
   font-size:14px;
   opacity:0.9;
-  animation:floatUp 12s linear infinite;
-  z-index:4;
+  animation:floatUp linear forwards;
+  z-index:3;
 }
 
+/* animations */
 @keyframes fall{
   to{transform:translateY(120vh);opacity:0.9;}
 }
@@ -153,97 +163,123 @@ body{
 <!-- LOCK SCREEN -->
 <div id="lockScreen">
   <div class="word-bg" id="wordsBg"></div>
+
   <div class="password-container">
-    <h2 id="passwordQuestion"></h2>
+    <h2 id="passwordQuestion">Loading...</h2>
     <input type="password" id="passwordInput">
     <button onclick="checkPassword()">Unlock ❤️</button>
   </div>
 </div>
 
-<!-- MAIN SCREEN -->
+<!-- MAIN -->
 <div id="mainContent">
-  <div class="card">
+  <div class="card" id="mainCard">
     <h1>✨ Happy New Year My Love ✨</h1>
     <p>
       My Jaan ❤️,<br><br>
-      Another year passed, and my heart still beats only for you 💖.<br><br>
-      May 2026 bring you endless smiles, peace, love and dreams coming true ✨.<br><br>
-      I promise to love you deeper, stronger, and forever 💞.<br><br>
-      Happy New Year 🎆 — Your Hubby ❤️
+      Another beautiful year has passed and my heart still beats for you like it did on  
+      <b>15 October 2023</b> 💞<br><br>
+
+      May this <b>New Year 2026</b> bring you endless happiness, peace, laughter and dreams ✨<br>
+      May every day remind you how deeply you are loved 💖<br><br>
+
+      My prayer 🙏 is that God always protects you, keeps your heart calm,
+      and fills your life with light.<br><br>
+
+      I promise to stand beside you, love you endlessly,
+      and make every moment special just for you 💫<br><br>
+
+      Happy New Year 🎆❤️  
+      <br><b>Forever Yours — Your Hubby 🫶</b>
     </p>
   </div>
 </div>
 
 <script>
-const totalPics=68;
-const floatingWords=[
+const totalPics = 68;
+
+const floatingWords = [
 "Wifee ♥️","Mera kaka 😘","Meri jaan ka tota ❤️","Mera dil 💖","Mera baby 🐥",
 "Forever ✨","Your hubby 🫶","My Angel 😇","Love You 💌","Always Together 🤍",
-"My Treasure 🪙","Sweetheart 🍬","Happiness 😊","Soulmate 💞"
+"My Treasure 🪙","Sweetheart 🍬","Kaka & Baby 👫","Happiness 😊","Soulmate 💞"
 ];
 
-/* 5000 words bg */
-let bg='';
+/* 5000 words background */
+const bg = document.getElementById("wordsBg");
+let text="";
 for(let i=0;i<5000;i++){
-  bg+=floatingWords[Math.floor(Math.random()*floatingWords.length)]+' ';
+  text += floatingWords[Math.floor(Math.random()*floatingWords.length)]+" ";
 }
-document.getElementById("wordsBg").innerText=bg;
+bg.innerText=text;
 
-/* Floating */
-function pic(){
-  const i=document.createElement("img");
-  const n=Math.floor(Math.random()*totalPics)+1;
-  i.src=`images/float${String(n).padStart(2,'0')}.jpg`;
-  i.className="floating-pic";
-  const s=130+Math.random()*70;
-  i.style.width=i.style.height=s+"px";
-  i.style.left=Math.random()*100+"vw";
-  i.style.animationDuration=(9+Math.random()*6)+"s";
-  document.body.appendChild(i);
-  setTimeout(()=>i.remove(),17000);
+/* floating creators */
+function floatingPic(){
+  const img=document.createElement("img");
+  img.src=`images/float${String(Math.floor(Math.random()*totalPics)+1).padStart(2,'0')}.jpg`;
+  img.className="floating-pic";
+  let size=120+Math.random()*60;
+  img.style.width=size+"px";
+  img.style.height=size+"px";
+  img.style.left=Math.random()*100+"vw";
+  img.style.animationDuration=8+Math.random()*7+"s";
+  document.body.appendChild(img);
+  setTimeout(()=>img.remove(),16000);
 }
-function heart(){
+
+function floatingHeart(){
   const h=document.createElement("div");
   h.className="floating-heart";
   h.innerText="❤️";
   h.style.left=Math.random()*100+"vw";
-  h.style.animationDuration=(7+Math.random()*5)+"s";
+  h.style.animationDuration=6+Math.random()*5+"s";
   document.body.appendChild(h);
-  setTimeout(()=>h.remove(),16000);
+  setTimeout(()=>h.remove(),15000);
 }
-function word(){
+
+function floatingWord(){
   const w=document.createElement("div");
   w.className="floating-word";
   w.innerText=floatingWords[Math.floor(Math.random()*floatingWords.length)];
   w.style.left=Math.random()*100+"vw";
+  w.style.animationDuration=10+Math.random()*6+"s";
   document.body.appendChild(w);
   setTimeout(()=>w.remove(),14000);
 }
 
-/* Password logic */
+function startFloating(){
+  floatingPic();
+  floatingHeart();
+  floatingWord();
+}
+
+/* PASSWORDS */
 const passwords=[
-{q:"Enter anniversary date DDMMYYYY 💖",a:["15102023"]},
-{q:"What am I to you? 💌",a:["chuchu","husband"]},
-{q:"How long will we be together? ✨",a:["forever","always"]}
+ {q:"Enter anniversary date DDMMYYYY 💖",a:"15102023"},
+ {q:"What am I to you? 💌",a:["chuchu","husband"]},
+ {q:"How long will we be together? ✨",a:["forever","always"]}
 ];
 let step=0;
 document.getElementById("passwordQuestion").innerText=passwords[0].q;
 
 function checkPassword(){
-  const v=document.getElementById("passwordInput").value.toLowerCase();
-  if(passwords[step].a.includes(v)){
+  const val=document.getElementById("passwordInput").value.toLowerCase();
+  const ans=passwords[step].a;
+
+  if(Array.isArray(ans)?ans.includes(val):val===ans){
     step++;
+    document.getElementById("passwordInput").value="";
     if(step<passwords.length){
-      passwordInput.value="";
-      passwordQuestion.innerText=passwords[step].q;
+      document.getElementById("passwordQuestion").innerText=passwords[step].q;
     }else{
-      lockScreen.style.display="none";
-      mainContent.style.display="block";
-      setInterval(()=>{pic();heart();word();},500);
+      document.getElementById("lockScreen").style.display="none";
+      document.getElementById("mainContent").style.display="block";
+      document.getElementById("mainCard").style.display="block";
+      setInterval(startFloating,500);
     }
-  }else alert("Wrong answer 😢");
+  }else{
+    alert("Wrong password 😢");
+  }
 }
 </script>
-
 </body>
 </html>

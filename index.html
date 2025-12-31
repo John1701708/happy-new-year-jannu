@@ -141,8 +141,8 @@ function createFloatingPic() {
 
   img.className = "floating-pic";
 
-  // Random size
-  const size = 40 + Math.random() * 50;
+  // **Random size bigger**
+  const size = 60 + Math.random() * 50; // 60–110px
   img.style.width = size + "px";
   img.style.height = size + "px";
 
@@ -163,8 +163,8 @@ function createFloatingHeart() {
   heart.className = "floating-heart";
   heart.innerText = "❤️";
 
-  // Random size
-  const size = 20 + Math.random() * 20;
+  // **Random bigger size**
+  const size = 30 + Math.random() * 20; // 30–50px
   heart.style.fontSize = size + "px";
 
   // Random left position

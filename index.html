@@ -3,9 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Happy New Year My Love ❤️✨</title>
-
 <style>
-/* Body + background for main content */
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
@@ -15,34 +13,84 @@ body {
   color: white;
 }
 
-/* Dark overlay */
-body::before {
-  content: "";
+/* Lock screen container */
+#lockScreen {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.55);
-  z-index: -1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  z-index: 10;
+  overflow: hidden;
 }
 
-/* Center card */
+/* Background words */
+.word-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: rgba(255,255,255,0.07);
+  font-size: 16px;
+  line-height: 1.4;
+  padding: 20px;
+  overflow: hidden;
+  z-index: -1;
+  white-space: pre-wrap;
+}
+
+/* Password input container */
+.password-container {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+#lockScreen input {
+  padding:12px;
+  border-radius:8px;
+  border:2px solid white;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  font-size:18px;
+  text-align:center;
+  margin-top:10px;
+  outline:none;
+  width:250px;
+}
+
+#lockScreen button {
+  margin-top:15px;
+  padding:12px 25px;
+  font-size:18px;
+  border-radius:12px;
+  cursor:pointer;
+  border:none;
+  background:#ff4d6d;
+  color:white;
+}
+
+/* Main card */
 .card {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
   background: rgba(0,0,0,0.45);
-  padding: 35px;
+  padding: 40px;
   border-radius: 25px;
   text-align: center;
   max-width: 700px;
   box-shadow: 0 0 35px rgba(0,0,0,0.6);
-  display: none; /* Hidden until password correct */
+  display: none;
 }
 
-.card h1 { font-size: 38px; }
-.card p { font-size: 18px; line-height: 1.6; }
+.card h1 { font-size: 40px; margin-bottom:20px; }
+.card p { font-size: 20px; line-height: 1.6; }
 
-/* Floating pics snow-style */
+/* Floating pics */
 .floating-pic {
   position: fixed;
   top: -100px;
@@ -57,20 +105,20 @@ body::before {
 .floating-heart {
   position: fixed;
   top: -50px;
-  font-size: 24px;
+  font-size: 30px;
   color: #ff4d6d;
   animation: fallHeart linear forwards;
   z-index: 2;
 }
 
-/* Floating words on main content */
+/* Floating words */
 .floating-word {
   position: fixed;
   bottom: -30px;
-  font-size: 14px;
-  color: rgba(255,255,255,0.6);
+  font-size: 16px;
+  color: rgba(255,255,255,0.9);
   animation: floatUp 12s linear infinite;
-  z-index: 3;
+  z-index:3;
 }
 
 @keyframes fall {
@@ -82,58 +130,20 @@ body::before {
   100% { transform: translateY(120vh); opacity: 0.9; }
 }
 @keyframes floatUp {
-  to {
-    transform: translateY(-120vh);
-    opacity: 0;
-  }
-}
-
-/* Lock Screen */
-#lockScreen {
-  position: fixed;
-  inset: 0;
-  background:#203a43;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-  z-index: 10;
-  overflow: hidden;
-}
-
-#lockScreen input {
-  padding:12px;
-  border-radius:8px;
-  border:none;
-  font-size:16px;
-  margin-top:10px;
-}
-
-#lockScreen button {
-  margin-top:15px;
-  padding:10px 20px;
-  font-size:16px;
-  border-radius:10px;
-  cursor:pointer;
-}
-
-/* Floating background words for lock screen */
-.lock-word {
-  position: fixed;
-  font-size: 16px;
-  color: rgba(255,255,255,0.2);
-  animation: floatUp 15s linear infinite;
+  to { transform: translateY(-120vh); opacity: 0; }
 }
 </style>
 </head>
-
 <body>
 
 <!-- Lock Screen -->
 <div id="lockScreen">
-  <h2>Enter Secret Password 💖</h2>
-  <input type="password" id="passwordInput" placeholder="DDMMYYYY">
-  <button onclick="checkPassword()">Enter</button>
+  <div class="word-bg" id="wordsBg"></div>
+  <div class="password-container">
+    <h2 id="passwordQuestion">Loading...</h2>
+    <input type="password" id="passwordInput" placeholder="">
+    <button onclick="checkPassword()">Enter</button>
+  </div>
 </div>
 
 <!-- Main Content -->
@@ -142,59 +152,52 @@ body::before {
     <h1>✨ Happy New Year My Love ✨</h1>
     <p>
       My Jaan ❤️,<br>
-      Another year has passed and I still feel the same magic in my heart for you as I did on <b>15 October 2023</b>.<br><br>
-      May this <b>New Year 2026</b> bring you all the <b>happiness, love, and success</b> you’ve ever dreamed of ✨.<br>
-      May your heart always be filled with <b>peace, joy, and laughter</b>, and may every day give you a reason to smile 💖.<br><br>
-      My prayer for you 🙏:<br>
-      May God bless you with every wish you’ve whispered to your heart, remove all worries, and keep your soul calm and safe.<br><br>
-      I promise to stay by your side, to love you endlessly, and to make every moment of this year special just for you.<br><br>
-      Happy New Year, my love 🎆❤️ — here’s to another year of us together.
+      Another beautiful year has passed and my heart still beats for you like it did on <b>15 October 2023</b>.<br><br>
+      May this <b>New Year 2026</b> bring you all the <b>happiness, love, laughter</b> and <b>dreams</b> your heart desires ✨.<br>
+      May every day remind you how deeply you are loved 💖 and may your heart always feel <b>peace and joy</b>.<br><br>
+      My prayer 🙏: May God bless you, remove all worries, and keep your soul calm and safe.<br><br>
+      I promise to stay by your side, to love you endlessly, and make every moment special just for you.<br><br>
+      Happy New Year 🎆❤️ — another year of laughter, dreams, and endless love together.
     </p>
   </div>
 </div>
 
 <script>
-const totalPics = 68; // Total floating pics
+const totalPics = 68;
+const floatingWords = [
+  "Wifee ♥️","Mera kaka 😘","Meri jaan ka tota ❤️","Mera dil 💖","Mera baby 🐥",
+  "Forever ✨","Your hubby 🫶","My Angel 😇","Love You 💌","Always Together 🤍",
+  "My Treasure 🪙","Sweetheart 🍬","Kaka & Baby 👫","Happiness 😊","Soulmate 💞"
+];
 
-// Floating background words for lock screen
-const lockWords = [
-  "Wifee ♥️","Mera kaka 😘","Meri jaan ka tota ❤️","Mera dil 💖","Mera baby 🐥","Forever ✨",
-  "Your hubby 🫶","My Angel 😇","Love You 💌","Always Together 🤍","My Treasure 🪙","Sweetheart 🍬",
-  "Kaka & Baby 👫","Happiness 😊","My Love ❤️","Special One 💎","My World 🌍","Soulmate 💫",
-  "Heart ❤️","Darling 💕","Beloved 🫶","Sunshine ☀️","Moonlight 🌙","Star ✨"
-]; // Add more if needed
-
-function createLockWord() {
-  const word = document.createElement("div");
-  word.className = "lock-word";
-  word.innerText = lockWords[Math.floor(Math.random()*lockWords.length)];
-  word.style.left = Math.random()*100 + "vw";
-  word.style.animationDuration = (10 + Math.random()*10) + "s";
-  document.body.appendChild(word);
-  setTimeout(()=>word.remove(),15000);
+// Generate 5000 words background for lock screen
+const wordsBg = document.getElementById("wordsBg");
+let bgText = '';
+for(let i=0;i<5000;i++){
+  bgText += floatingWords[Math.floor(Math.random()*floatingWords.length)] + ' ';
 }
+wordsBg.innerText = bgText;
 
-// Floating pics
+// Floating elements functions
 function createFloatingPic() {
   const img = document.createElement("img");
   const randomPic = Math.floor(Math.random() * totalPics) + 1;
   img.src = `images/float${String(randomPic).padStart(2,'0')}.jpg`;
   img.className = "floating-pic";
-  const size = 80 + Math.random() * 70; // bigger 80–150px
+  const size = 100 + Math.random()*50;
   img.style.width = size + "px";
   img.style.height = size + "px";
-  img.style.left = Math.random() * 100 + "vw";
-  img.style.animationDuration = (8 + Math.random() * 7) + "s";
+  img.style.left = Math.random()*100 + "vw";
+  img.style.animationDuration = (8+Math.random()*7) + "s";
   document.body.appendChild(img);
-  setTimeout(() => img.remove(), 16000);
+  setTimeout(()=>img.remove(),16000);
 }
 
-// Floating hearts
 function createFloatingHeart() {
   const heart = document.createElement("div");
   heart.className = "floating-heart";
   heart.innerText = "❤️";
-  const size = 40 + Math.random()*30; // 40–70px
+  const size = 40 + Math.random()*20;
   heart.style.fontSize = size + "px";
   heart.style.left = Math.random()*100 + "vw";
   heart.style.animationDuration = (6 + Math.random()*5) + "s";
@@ -202,50 +205,50 @@ function createFloatingHeart() {
   setTimeout(()=>heart.remove(),15000);
 }
 
-// Floating words on main content
-const mainWords = lockWords; // reuse same words for main content
-function createFloatingMainWord() {
+function createFloatingWord() {
   const w = document.createElement("div");
   w.className = "floating-word";
-  w.innerText = mainWords[Math.floor(Math.random()*mainWords.length)];
+  const word = floatingWords[Math.floor(Math.random()*floatingWords.length)];
+  w.innerText = word;
   w.style.left = Math.random()*100 + "vw";
-  w.style.animationDuration = (10 + Math.random()*8) + "s";
+  w.style.animationDuration = (10 + Math.random()*6) + "s";
   document.body.appendChild(w);
   setTimeout(()=>w.remove(),14000);
 }
 
-// Continuous floating
-let snowInterval;
-let wordInterval;
-let lockWordInterval;
-
-// Password steps
-let step = 0;
-const passwords = ["15102023","chuchu","forever"];
-
-function checkPassword() {
-  const input = document.getElementById("passwordInput").value;
-  if(input === passwords[step]){
-    step++;
-    if(step === 3){
-      document.getElementById("lockScreen").style.display = "none";
-      document.getElementById("mainCard").style.display = "block";
-      snowInterval = setInterval(()=>{createFloatingPic(); if(Math.random()>0.5) createFloatingHeart();},500);
-      wordInterval = setInterval(createFloatingMainWord,2000);
-      clearInterval(lockWordInterval);
-    } else {
-      document.getElementById("passwordInput").value = "";
-      document.getElementById("passwordInput").placeholder = step === 1 ? "Who am I?": "Until when we stay together?";
-      alert("Correct! Next password 💖");
-    }
-  } else {
-    alert("Incorrect 😢");
-  }
+function createFloatingElements(){
+  createFloatingPic();
+  if(Math.random()>0.5) createFloatingHeart();
+  if(Math.random()>0.5) createFloatingWord();
 }
 
-// Start lock screen words
-lockWordInterval = setInterval(createLockWord,200);
+// Password steps
+const passwords = [
+  {q:"Enter anniversary date DDMMYYYY 💖",a:"15102023"},
+  {q:"What am I to you? 💌",a:"chuchu"},
+  {q:"How long will we be together? ✨",a:"forever"}
+];
+let step = 0;
 
+// Show first question
+document.getElementById("passwordQuestion").innerText = passwords[step].q;
+
+function checkPassword(){
+  const input = document.getElementById("passwordInput").value.toLowerCase();
+  if(input === passwords[step].a.toLowerCase()){
+    step++;
+    if(step < passwords.length){
+      document.getElementById("passwordInput").value='';
+      document.getElementById("passwordQuestion").innerText = passwords[step].q;
+    } else {
+      document.getElementById("lockScreen").style.display="none";
+      document.getElementById("mainCard").style.display="block";
+      setInterval(createFloatingElements,500);
+    }
+  } else{
+    alert("Incorrect Password 😢");
+  }
+}
 </script>
 </body>
 </html>

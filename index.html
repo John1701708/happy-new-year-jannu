@@ -11,17 +11,31 @@ body {
   font-family: 'Segoe UI', sans-serif;
   height: 100vh;
   overflow: hidden;
-  background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
   color: white;
 }
 
-/* Dark overlay */
+/* Background overlay */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.55);
+  background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  z-index: -2;
+}
+
+/* Floating words for background */
+#bgWords {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
   z-index: -1;
+  pointer-events: none;
+}
+.bg-word {
+  position: absolute;
+  font-size: 14px;
+  color: rgba(255,255,255,0.1);
+  white-space: nowrap;
 }
 
 /* Center card */
@@ -42,7 +56,7 @@ body::before {
 .card h1 { font-size: 38px; }
 .card p { font-size: 18px; line-height: 1.6; }
 
-/* Floating pics snow-style */
+/* Floating pics */
 .floating-pic {
   position: fixed;
   top: -100px;
@@ -63,6 +77,17 @@ body::before {
   z-index: 2;
 }
 
+/* Floating words */
+.floating-word {
+  position: fixed;
+  bottom: -30px;
+  font-size: 16px;
+  color: rgba(255,255,255,0.7);
+  white-space: nowrap;
+  animation: floatUp linear forwards;
+  z-index: 1;
+}
+
 /* Fall animations */
 @keyframes fall {
   0% { transform: translateY(-100px); opacity: 1; }
@@ -71,6 +96,10 @@ body::before {
 @keyframes fallHeart {
   0% { transform: translateY(-50px); opacity: 1; }
   100% { transform: translateY(120vh); opacity: 0.9; }
+}
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-120vh); opacity: 0; }
 }
 
 /* Lock Screen */
@@ -91,6 +120,7 @@ body::before {
   border:none;
   font-size:16px;
   margin-top:10px;
+  text-align: center;
 }
 
 #lockScreen button {
@@ -102,12 +132,14 @@ body::before {
 }
 </style>
 </head>
-
 <body>
+
+<!-- Background words -->
+<div id="bgWords"></div>
 
 <!-- Lock Screen -->
 <div id="lockScreen">
-  <h2>Enter Secret Password 💖</h2>
+  <h2 id="passwordTitle">Enter Anniversary Date 💖</h2>
   <input type="password" id="passwordInput" placeholder="DDMMYYYY">
   <button onclick="checkPassword()">Enter</button>
 </div>
@@ -130,72 +162,98 @@ body::before {
 </div>
 
 <script>
-const totalPics = 68; // Total floating pics
+/* -------- Floating Background Words -------- */
+const bgWordsText = [
+  "Wifee ♥️","Mera kaka 😘","Meri jaan ka tota ❤️","Mera dil 💖","Mera baby 🐥",
+  "Forever ✨","Your hubby 🫶","My Angel 😇","Love You 💌","Always Together 🤍",
+  "My Treasure 🪙","Sweetheart 🍬","Kaka & Baby 👫","Happiness 😊"
+];
+// Fill background with random repeated words
+for(let i=0;i<1000;i++){
+  const w = document.createElement("div");
+  w.className="bg-word";
+  const randomWord = bgWordsText[Math.floor(Math.random()*bgWordsText.length)];
+  w.innerText=randomWord;
+  w.style.left = Math.random()*100+"vw";
+  w.style.top = Math.random()*100+"vh";
+  w.style.fontSize = 10 + Math.random()*8 + "px";
+  document.getElementById("bgWords").appendChild(w);
+}
+
+/* -------- Floating Pics + Hearts + Words -------- */
+const totalPics = 68; 
+const floatingWords = [
+  "Wifee ♥️","Mera kaka 😘","Meri jaan ka tota ❤️","Mera dil 💖","Mera baby 🐥",
+  "Forever ✨","Your hubby 🫶","My Angel 😇","Love You 💌","Always Together 🤍",
+  "My Treasure 🪙","Sweetheart 🍬","Kaka & Baby 👫","Happiness 😊"
+];
 
 function createFloatingPic() {
   const img = document.createElement("img");
-
-  // Random pic
   const randomPic = Math.floor(Math.random() * totalPics) + 1;
   img.src = `images/float${String(randomPic).padStart(2,'0')}.jpg`;
-
-  img.className = "floating-pic";
-
-  // **Random size bigger**
-  const size = 60 + Math.random() * 50; // 60–110px
-  img.style.width = size + "px";
-  img.style.height = size + "px";
-
-  // Random left position
-  img.style.left = Math.random() * 100 + "vw";
-
-  // Random falling speed
-  img.style.animationDuration = (8 + Math.random() * 7) + "s";
-
+  img.className="floating-pic";
+  const size=80+Math.random()*60;
+  img.style.width=size+"px";
+  img.style.height=size+"px";
+  img.style.left=Math.random()*100+"vw";
+  img.style.animationDuration=(8+Math.random()*7)+"s";
   document.body.appendChild(img);
-
-  // Remove after falling
-  setTimeout(() => img.remove(), 16000);
+  setTimeout(()=>img.remove(),16000);
 }
 
 function createFloatingHeart() {
-  const heart = document.createElement("div");
-  heart.className = "floating-heart";
-  heart.innerText = "❤️";
-
-  // **Random bigger size**
-  const size = 30 + Math.random() * 20; // 30–50px
-  heart.style.fontSize = size + "px";
-
-  // Random left position
-  heart.style.left = Math.random() * 100 + "vw";
-
-  // Random fall speed
-  heart.style.animationDuration = (6 + Math.random() * 5) + "s";
-
+  const heart=document.createElement("div");
+  heart.className="floating-heart";
+  heart.innerText="❤️";
+  const size=40+Math.random()*20;
+  heart.style.fontSize=size+"px";
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.animationDuration=(6+Math.random()*5)+"s";
   document.body.appendChild(heart);
-
-  setTimeout(() => heart.remove(), 15000);
+  setTimeout(()=>heart.remove(),15000);
 }
 
-// Pics + Hearts
-function createFloatingElements() {
-  createFloatingPic();   // floating pics
-  if(Math.random() > 0.5) createFloatingHeart(); // random hearts
+function createFloatingWord() {
+  const word=document.createElement("div");
+  word.className="floating-word";
+  const randomWord=floatingWords[Math.floor(Math.random()*floatingWords.length)];
+  word.innerText=randomWord;
+  word.style.left=Math.random()*100+"vw";
+  word.style.animationDuration=(10+Math.random()*6)+"s";
+  document.body.appendChild(word);
+  setTimeout(()=>word.remove(),14000);
 }
 
-// Continuous falling elements
-let snowInterval; // start after password
+function createFloatingElements(){
+  createFloatingPic();
+  if(Math.random()>0.5) createFloatingHeart();
+  if(Math.random()>0.5) createFloatingWord();
+}
 
-// Password check function
-function checkPassword() {
-  const password = document.getElementById("passwordInput").value;
-  if(password === "15102023") { // Start date
-    document.getElementById("lockScreen").style.display = "none";
-    document.getElementById("mainCard").style.display = "block";
-    // Start floating pics + hearts
-    snowInterval = setInterval(createFloatingElements, 500);
-  } else {
+let snowInterval;
+
+/* -------- Password Flow -------- */
+const passwords = [
+  {title:"Enter Anniversary Date 💖", answer:"15102023"},
+  {title:"I am your …? 😘", answer:"chuchu"},
+  {title:"Plan to stay together? ✨", answer:"forever"}
+];
+let step=0;
+
+function checkPassword(){
+  const input=document.getElementById("passwordInput").value.toLowerCase().trim();
+  if(input===passwords[step].answer){
+    step++;
+    if(step<passwords.length){
+      document.getElementById("passwordInput").value="";
+      document.getElementById("passwordTitle").innerText=passwords[step].title;
+    }else{
+      document.getElementById("lockScreen").style.display="none";
+      document.getElementById("mainCard").style.display="block";
+      snowInterval=setInterval(createFloatingElements,500);
+    }
+  }else{
     alert("Incorrect Password 😢");
   }
 }
